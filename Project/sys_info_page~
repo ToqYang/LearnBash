@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#Program information output
+
+declare -r TITLE="System Information Report For $HOSTNAME"
+
+echo "<html>"
+echo "   <head>"
+echo "       <title>$TITLE</title>"
+echo "   </head>"
+echo "   <body>"
+echo "      <h1>$TITLE</h1>"
+echo "   </body>"
+echo "</html>"
+
