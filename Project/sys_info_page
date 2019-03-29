@@ -2,18 +2,71 @@
 
 #Program information output
 
+report_uptime (){
+
+    cat <<-EOF
+
+    <h2>System Uptime</h2>
+    <pre>$(uptime)</pre>
+
+EOF
+    
+    return
+}
+
+report_disk_space (){
+
+    cat <<-EOF
+    
+    <h2>Disk Space In Use</h2>
+       <pre>$(df -h)</pre>
+
+EOF
+    
+    return
+}
+
+report_home_space (){
+
+    cat <<-EOF
+
+    <h2>Home Space In Use</h2>
+    <pre>$(du -sh ~/*)</pre>
+
+EOF
+    
+    return
+}
+
+
 TITLE="System Information Report For $HOSTNAME"
 CURRENT_TIME="$(date +"%x %r %Z")"
 TIMESTAMP="Generated $CURRENT_TIME, by $USER" 
 
 
 
-echo "<html>"
-echo "   <head>"
-echo "       <title>$TITLE</title>"
-echo "   </head>"
-echo "   <body>"
-echo "      <h1>$TITLE</h1>"
-echo "      <p>$TIMESTAMP</p>"
-echo "   </body>"
-echo "</html>"
+
+cat <<-EOF
+
+<html>
+   <head>
+     <title>$TITLE</title>
+   </head>
+
+   <body>
+     <h1>$TITLE</h1>
+       <p>$TIMESTAMP</p>
+
+      
+       $(report_uptime)
+       $(report_disk_space)
+       $(report_home_space)
+      
+
+
+    </body>
+</html>
+
+EOF
+
+

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Shell Function Demo
+
+foo=0  #This is a global variable.
+ 
+function func1 {
+
+    local foo=1 # This is a local variable of func1
+    echo "Variable local func1foo = $foo"
+    return 
+}
+
+
+func2 () {
+
+    local foo=2
+    echo "Variable local func2 foo = $foo"
+    return
+}
+
+# Main Start
+
+
+echo "Before global variable foo = $foo"
+
+func1 #Function1
+
+echo "Middle global variable foo = $foo"
+
+func2 #Function2
+
+echo "After global variable foo = $foo"
