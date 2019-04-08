@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#Declare -a = array
+declare -a days=([0]=Sun [1]=Mon [2]=Tue [3]=Wed)
+
+#Value of all subscript of the array.
+echo ${days[*]}
+
+#Size of the array.
+echo ${#days[@]}
+
+#Number of subscript of the array.
+echo "${!days[@]}"
+
+#Add new numbers at array.
+days+=(Thur Fri Sat)
+
+echo ${days[*]}
+
+#unset = For clear the work.
+
+unset 'days[0]'
+
+
+echo ${#days[@]}
+
+echo "${!days[@]}"
+
+echo ${days[*]}

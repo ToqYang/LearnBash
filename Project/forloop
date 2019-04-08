@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Long word in a file.
+
+#Why I, J, K, L AND M?, 
+# the tradition start with "FORTRAN" because the variables declared in
+# that program were automatically defined how integers.
+
+for i; do
+    #-r Permission of read.
+    if [[ -r "$i" ]]; then
+       
+	max_word=
+	max_leng=0
+	#Similar to how work a foreach.
+	for j in $(strings "$i"); do
+	    
+	    len="$(echo -n "$j" | wc -c)"
+	    
+	    if (( len > maxlen )); then
+		max_len="$len"
+		max_word="$j"
+	    fi
+	done
+
+	echo "$i: '$max_word' ($max_len characters)"
+    fi
+done

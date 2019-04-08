@@ -1,0 +1,74 @@
+#!/bin/bash
+
+#While menu.
+
+declare -r DELAY=3 #Const of the seconds.
+
+while [[ $REPLY != 0 ]]; do
+    clear
+
+
+#Indetation for display options of the menu
+    cat <<-EOF 
+
+    	Please Select:
+	
+	1. Display System Information
+	2. Display Disk Space 
+	3. Display Home Space Utilization
+	0. Quit
+
+EOF
+
+#Read -p'is for print before of evaluate.
+    read -p "Enter Selection [0-3] > "
+
+#Evaluate value of assign to default to variable REPLY.   
+#Twice parentheses because, the program need read variable without,
+#quotes and for REGEX expressions.
+    
+    if [[ $REPLY =~ ^[0-3]$ ]]; then
+
+	#Options
+	#Sleep for wait a seconds assigned to variable REPLY
+	
+	if [[ $REPLY == 1 ]]; then
+	    echo "User: $HOSTNAME"
+	    uptime
+	    sleep "$DELAY"
+	fi
+
+	if [[ $REPLY == 2 ]]; then
+            df -h 
+            sleep "$DELAY"
+        fi
+
+        if [[ $REPLY == 3 ]]; then
+             if [[ $(id -u) -eq 0 ]]; then
+		 echo "Home space is (ALL uSERS)"
+		 du -sh ~/*
+	     else
+		 echo "Home space is ($USER) "
+		 du -sh "$HOME"
+	     fi
+	     sleep "$DELAY"
+        fi
+
+    else
+
+	echo "Invalid Value"
+	sleep "$DELAY"
+    
+     fi
+
+done
+
+
+
+echo "Finish Program"
+
+    
+
+
+
+	

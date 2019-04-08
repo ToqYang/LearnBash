@@ -1,0 +1,101 @@
+#!/bin/bash
+
+# Script for remove ~                                                          # Script for upload commit to gi 
+
+chandir()
+{
+  cd ~/Bash/Project
+}
+
+declare -r DELAY=3
+locuser="origin"
+messcommit="Message Automatized for the commit:"
+exit_or_no="Selection"
+check_git=$(curl --write-out %{http_code} --silent --output /dev/null https://github.com/)
+DIRECTORY=(/home/*/Bash/Project)
+
+
+
+if [[ -d "$DIRECTORY" ]]; then
+    
+   
+    #Steps.
+    #1) Change directory searched.
+    chandir
+    #2) Remove backup generated for the system.
+    rm -fv *~
+    # -f = forve -v = verbose *~ Files finalized in ~.
+
+    #3) Change directory parent = ~/Bash.
+    cd ..
+    #4)The same step 2.
+    rm -fv *~
+    #5) The message about task acommplished.
+    echo "Files duplicate's removed with success."
+    #6) Wait time.
+    sleep "$DELAY"
+else
+    #In case of not find directory 
+    echo "The directory searched not exist."
+    sleep "$DELAY"
+fi
+
+# Script for upload commit to git.
+
+#Put until commit.
+
+
+
+# Check if there internet.
+if [[ "$check_git" -eq 200 ]]; then
+
+# Add all the files.                                                                                                                           
+    git add *
+    
+#Read message to the commit.                                               
+    read -e -p "$messcommit" messcommit
+    
+#Message commit.
+    git commit -m "$messcommit"
+
+    echo "Desire change the remote name to default ""ORIGIN"" [Y-N]"
+
+#Read option.
+    
+read -e exit_or_no
+
+case  "$exit_or_no" in
+
+    y|Y) echo -e "New remote name:\n"
+	 read -p locuser
+	 "Change with completed."
+	 sleep "$DELAY"
+	 clear
+	 ;;
+    
+    n|N) echo "Good!"
+	 continue
+	 ;;
+    
+    *) echo "Invalid entry"
+       exit 1
+esac
+
+git push -u "$locuser" master
+
+else
+    echo "No there conecion with git."
+    sleep "$DELAY"
+fi
+
+echo "Program finalizated in 3...2..1."
+sleep "$DELAY"
+
+exit 0
+
+
+
+
+
+
+

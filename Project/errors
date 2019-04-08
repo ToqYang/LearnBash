@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Trouble's
+
+number=1
+
+if [[ $number = 1]]; then
+   echo "The number is equal to 1"
+
+else
+	echo "Number is not equal to 1"
+fi

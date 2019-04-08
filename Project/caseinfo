@@ -1,0 +1,48 @@
+#!/bin/bash
+
+#Menu in version case.
+
+
+#Display options.
+echo "                                                                         
+                                                                           
+Please Select:                                                                 
+                                                                             
+1. Display System Information.                                                 
+2. Display Disk Space.                                                         
+3. Display Home Space Utilization                                              
+0. Quit.                                                                       
+"
+
+#Read and print the character choose.
+read -p "Choose the option that you want. [A, B, C or Q] > "                            
+                                                    
+#REPLY to default entry. 
+case "$REPLY" in
+
+    q|Q) echo "Program terminated."
+       exit
+       ;;&
+    a|A) echo "Hostname: $HOSTNAME"
+       uptime
+       ;;&
+    b|B) df -h
+       ;;&
+    c|C) if [[ "$(id -u)" == 0  ]]; then
+	   echo "Home space utilization (All users)"
+	   du -sh /home/*
+       else 
+	   echo "Home Space Utilization ($USER)"
+	   du -sh "$HOME"
+       fi
+       ;;&
+    *) echo "Invalid entry" >&2
+       exit 1
+       ;;
+
+esac
+
+
+
+
+
